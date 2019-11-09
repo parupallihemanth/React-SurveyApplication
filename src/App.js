@@ -5,9 +5,10 @@ import Authentication from './authentication'
 class App extends Component{
   render(){
     return(
-    <div>   
-       <Survey />
-       <Authentication />
+    <div className = 'App'>   
+        
+       {/* <Survey /> */}
+       <Authentication /> 
     </div>   
     );
   }
