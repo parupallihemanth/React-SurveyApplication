@@ -60,6 +60,8 @@ class Authentication extends Component{
             sup.classList.add('hide')
             let lin  = document.getElementById('login')
             lin.classList.add('hide')
+            let gg  = document.getElementById('google')
+            gg.classList.add('hide')
             this.setState({err:err})
             
         }
@@ -96,12 +98,40 @@ class Authentication extends Component{
        })
            
    }
+
+   logout = () =>{
+       let promise = firebase.auth().signOut()
+
+       promise.then(() =>{
+           let err = "you are successfully logged out"
+           let lout = document.getElementById('logout')
+           lout.classList.add('hide')
+           let sup  = document.getElementById('signup')    
+            sup.classList.remove('hide')
+            let lin  = document.getElementById('login')
+            lin.classList.remove('hide')
+            let gg  = document.getElementById('google')
+            gg.classList.remove('hide')
+           this.setState({err:err})
+       }
+
+       )
+       promise.catch(e =>{
+           let err = e.message
+           console.log(err)
+           this.setState({err:err})
+       })
+         }
+
   constructor(props){
       super(props)
           this.state={
               err : ''
           
-      }
+      };
+      this.login = this.login.bind(this)
+      this.signup = this.signup.bind(this)
+      this.logout = this.logout.bind(this)
   }
     render(){
         
@@ -113,8 +143,8 @@ class Authentication extends Component{
               
               <button id="login" onClick={this.login}>Login</button>{' '}
               <button id="signup" onClick={this.signup}>Signup</button>{' '}
-              <button id="logout" className="hide">Logout</button>{' '}<br /><br />
-              <button id="google"  onClick={this.google}>Signin with google</button>
+              <button id="logout" className="hide" onClick={this.logout}>Logout</button>{' '}<br /><br />
+              <button id="google"  onClick={this.google}>Sign in with google</button>
               </div>
         );
     }
